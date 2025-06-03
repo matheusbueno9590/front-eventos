@@ -1,13 +1,16 @@
-/* Configurações Globais */
+/* ===== Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
   margin: 0;
   padding: 0;
 }
 
-/* --------------------- */
-/* Navbar */
+/* ===== Navbar ===== */
 header {
   background-color: #000;
   padding: 15px 30px;
@@ -22,36 +25,35 @@ nav ul {
   gap: 30px;
 }
 
-nav ul li {
-  display: inline;
-}
-
 nav ul li a {
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 17px;
   transition: color 0.3s;
 }
 
 nav ul li a:hover {
-  color: #aaa;
+  color: #ffc107;
 }
 
-/* --------------------- */
-/* Títulos */
+/* ===== Títulos ===== */
 h2 {
   text-align: center;
-  margin-top: 40px;
-  color: #222;
+  margin-top: 30px;
+  color: #333;
 }
 
-/* --------------------- */
-/* Formulários Gerais */
+h3, h4 {
+  margin: 8px 0;
+}
+
+/* ===== Formulários ===== */
 form {
   background-color: white;
   padding: 30px;
   border-radius: 10px;
-  max-width: 400px;
+  max-width: 450px;
   margin: 50px auto;
   box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
   display: flex;
@@ -61,14 +63,13 @@ form {
 
 label {
   font-weight: bold;
-  color: #333;
 }
 
 input, select, textarea {
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
 textarea {
@@ -76,63 +77,99 @@ textarea {
   min-height: 80px;
 }
 
-/* --------------------- */
-/* Botões */
 button {
   padding: 12px;
-  background-color: black;
+  background-color: #000;
   color: white;
   border: none;
   cursor: pointer;
   font-size: 16px;
-  border-radius: 5px;
-  transition: background 0.3s;
+  border-radius: 6px;
+  transition: background-color 0.3s;
 }
 
 button:hover {
   background-color: #333;
 }
 
-/* --------------------- */
-/* Página Home (quando fizer) */
+/* ===== Containers Gerais ===== */
 .container-eventos {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 40px auto;
   padding: 20px;
 }
 
+/* ===== Search ===== */
 .search-bar {
-  margin-bottom: 20px;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .search-bar input {
-  width: 300px;
+  width: 50%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
+/* ===== Cards de Eventos ===== */
 .evento-card {
   background-color: white;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   margin-bottom: 20px;
+  transition: transform 0.2s;
 }
 
-/* --------------------- */
-/* Responsividade */
-@media (max-width: 600px) {
+.evento-card:hover {
+  transform: translateY(-3px);
+}
+
+.evento-card h3 {
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.evento-card p {
+  margin: 4px 0;
+}
+
+/* ===== Badges ===== */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: white;
+}
+
+.badge-gratuito {
+  background-color: #28a745;
+}
+
+.badge-pago {
+  background-color: #007bff;
+}
+
+.badge-cheio {
+  background-color: #dc3545;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 700px) {
   nav ul {
     flex-direction: column;
     align-items: flex-end;
     gap: 10px;
   }
 
-  form {
-    margin: 20px;
+  .search-bar input {
+    width: 90%;
   }
 
-  .search-bar input {
-    width: 100%;
+  form {
+    margin: 20px;
   }
 }

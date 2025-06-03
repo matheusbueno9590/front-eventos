@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 
 export default function Home() {
   const [eventos, setEventos] = useState([]);
   const [busca, setBusca] = useState('');
 
+  // Carrega os eventos da API
   useEffect(() => {
     api.get('/eventos')
       .then(res => setEventos(res.data))
       .catch(err => console.log(err));
   }, []);
 
-  const eventosFiltrados = eventos.filter(e =>
+  // Filtro de busca
+  const eventosFiltrados = eventos.filter((e) =>
     e.titulo.toLowerCase().includes(busca.toLowerCase()) ||
     e.local.toLowerCase().includes(busca.toLowerCase()) ||
     e.nicho.toLowerCase().includes(busca.toLowerCase())
@@ -20,6 +23,7 @@ export default function Home() {
   return (
     <div className="container-eventos">
       <h2>Eventos Disponíveis</h2>
+
       <div className="search-bar">
         <input
           type="text"
@@ -32,7 +36,9 @@ export default function Home() {
       {eventosFiltrados.length > 0 ? (
         eventosFiltrados.map((e) => (
           <div key={e.id} className="evento-card">
-            <h3>{e.titulo}</h3>
+            <Link to={`/evento/${e.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+              <h3>{e.titulo}</h3>
+            </Link>
             <p><strong>Descrição:</strong> {e.descricao}</p>
             <p><strong>Data:</strong> {e.data}</p>
             <p><strong>Local:</strong> {e.local}</p>

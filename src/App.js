@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import './App.css';
 import Perfil from './pages/Perfil';
+import Evento from './pages/Evento';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/evento' element={<CadastroEvento />} />
         <Route path='/home' element={<Home />} />
         <Route path='/perfil' element={<Perfil />} />
+        <Route path='/evento/:id' element={<Evento />} />
       </Routes>
     </BrowserRouter>
   );
