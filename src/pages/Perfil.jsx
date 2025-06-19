@@ -17,7 +17,9 @@ export default function Perfil() {
   return (
     <div style={{ backgroundColor: '#f9f6ef', minHeight: '100vh', paddingTop: '40px' }}>
       <div className="container">
-        <h2 className="subtitle">Meu Perfil</h2>
+        <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: '28px', marginBottom: '20px', textAlign: 'center' }}>
+          Meu Perfil
+        </h2>
 
         <form>
           <input
