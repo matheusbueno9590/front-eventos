@@ -1,30 +1,28 @@
-import { useState } from 'react';
-import api from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import '../styles/theme.css'; // Certifique-se de importar os estilos globais
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    api.post('/login', { email, senha })
-      .then(() => {
-        alert('Login realizado!');
-        navigate('/home');
-      })
-      .catch(() => alert('Erro no login'));
-  }
-
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
-        <button type="submit">Entrar</button>
-      </form>
+    <div style={{ backgroundColor: '#f9f6ef', minHeight: '100vh', paddingTop: '40px' }}>
+
+
+      <div className="container">
+        <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: '28px', marginBottom: '20px', textAlign: 'center' }}>
+          Login
+        </h2>
+
+        <form>
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Senha" required />
+          <button type="submit">ENTRAR</button>
+
+          <div style={{ textAlign: 'center', marginTop: '15px', color: 'white' }}>
+            <a href="#" style={{ color: '#eee', textDecoration: 'underline' }}>Esqueci minha senha</a>
+            <div style={{ margin: '10px 0' }}>────────── ou ──────────</div>
+            <a href="/cadastro" style={{ fontWeight: 'bold', color: '#fff' }}>Criar Conta</a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -1,55 +1,37 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import api from '../services/api';
+import React from 'react';
+import '../styles/theme.css';
 
 export default function Home() {
-  const [eventos, setEventos] = useState([]);
-  const [busca, setBusca] = useState('');
-
-  // Carrega os eventos da API
-  useEffect(() => {
-    api.get('/eventos')
-      .then(res => setEventos(res.data))
-      .catch(err => console.log(err));
-  }, []);
-
-  // Filtro de busca
-  const eventosFiltrados = eventos.filter((e) =>
-    e.titulo.toLowerCase().includes(busca.toLowerCase()) ||
-    e.local.toLowerCase().includes(busca.toLowerCase()) ||
-    e.nicho.toLowerCase().includes(busca.toLowerCase())
-  );
+  const categorias = [
+    'Cerimônia', 'Comemoração', 'Congresso/Simpósio', 'Evento Corporativo', 'Evento Esportivo',
+    'Evento Online', 'Evento Religioso', 'Exposição de Arte', 'Festa', 'Festa Social',
+    'Festival Gastronômico', 'Lançamento', 'Palestra/Seminário', 'Show/Concerto',
+    'Teatro/Dança/Performance', 'Workshop/Oficina'
+  ];
 
   return (
-    <div className="container-eventos">
-      <h2>Eventos Disponíveis</h2>
+    <div style={{ backgroundColor: '#f9f6ef', minHeight: '100vh', paddingTop: '40px' }}>
+    
 
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Buscar por título, local ou nicho..."
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-        />
+      <div className="container">
+        <div className="search-bar">
+          <input type="text" placeholder="Pesquise por Eventos" />
+          <input type="text" placeholder="Insira sua localização" />
+          <button className="cart-button">🛒 0</button>
+        </div>
+
+        <div className="categories">
+          {categorias.map((categoria) => (
+            <button key={categoria} className="category-button">{categoria}</button>
+          ))}
+        </div>
+
+        <div className="eventos-grid" style={{ marginTop: 40 }}>
+          {[...Array(4)].map((_, i) => (
+            <div className="event-card" key={i}>Eventos Cadastrados</div>
+          ))}
+        </div>
       </div>
-
-      {eventosFiltrados.length > 0 ? (
-        eventosFiltrados.map((e) => (
-          <div key={e.id} className="evento-card">
-            <Link to={`/evento/${e.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-              <h3>{e.titulo}</h3>
-            </Link>
-            <p><strong>Descrição:</strong> {e.descricao}</p>
-            <p><strong>Data:</strong> {e.data}</p>
-            <p><strong>Local:</strong> {e.local}</p>
-            <p><strong>Nicho:</strong> {e.nicho}</p>
-            <p><strong>Preço:</strong> {e.preco ? `R$ ${e.preco}` : 'Gratuito'}</p>
-            <p><strong>Limite de Inscrições:</strong> {e.limite}</p>
-          </div>
-        ))
-      ) : (
-        <p>Nenhum evento encontrado.</p>
-      )}
     </div>
   );
 }

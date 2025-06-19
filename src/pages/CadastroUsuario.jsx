@@ -1,84 +1,65 @@
-import { useState } from 'react';
-import api from '../services/api';
+import React, { useState } from 'react';
+import '../styles/theme.css';
 
 export default function CadastroUsuario() {
-  const [tipo, setTipo] = useState('cpf'); // cpf ou cnpj
-  const [nome, setNome] = useState('');
-  const [documento, setDocumento] = useState('');
-  const [endereco, setEndereco] = useState('');
-  const [genero, setGenero] = useState(''); // só para CPF
-  const [telefone, setTelefone] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const data = {
-      tipo,
-      nome,
-      documento, // CPF ou CNPJ
-      endereco,
-      telefone,
-      email,
-      senha,
-      ...(tipo === 'cpf' && { genero }), // só envia gênero se for CPF
-    };
-
-    api.post('/usuarios', data)
-      .then(() => {
-        alert('Usuário cadastrado com sucesso!');
-        limparCampos();
-      })
-      .catch(() => alert('Erro no cadastro'));
-  };
-
-  const limparCampos = () => {
-    setNome('');
-    setDocumento('');
-    setEndereco('');
-    setGenero('');
-    setTelefone('');
-    setEmail('');
-    setSenha('');
-  };
+  const [tipoConta, setTipoConta] = useState('Pessoa Física (CPF)');
 
   return (
-    <div>
-      <h2>Cadastro de Usuário</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Tipo de Conta:</label>
-        <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
-          <option value="cpf">Pessoa Física (CPF)</option>
-          <option value="cnpj">Pessoa Jurídica (CNPJ)</option>
-        </select>
+    <div style={{ backgroundColor: '#f9f6ef', minHeight: '100vh', paddingTop: '40px' }}>
 
-        <input placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
 
-        <input
-          placeholder={tipo === 'cpf' ? 'CPF' : 'CNPJ'}
-          value={documento}
-          onChange={(e) => setDocumento(e.target.value)}
-          required
-        />
+      <div className="container">
+        <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: '28px', marginBottom: '20px', textAlign: 'center' }}>
+          Cadastro de Usuário
+        </h2>
 
-        <input placeholder="Endereço" value={endereco} onChange={(e) => setEndereco(e.target.value)} required />
+        <form>
+          <label style={{ color: 'white', marginBottom: '5px' }}>Tipo de conta:</label>
+          <select
+            value={tipoConta}
+            onChange={(e) => setTipoConta(e.target.value)}
+            className="select"
+          >
+            <option>Pessoa Física (CPF)</option>
+            <option>Pessoa Jurídica (CNPJ)</option>
+          </select>
 
-        {tipo === 'cpf' && (
-          <input
-            placeholder="Gênero"
-            value={genero}
-            onChange={(e) => setGenero(e.target.value)}
-            required
-          />
-        )}
+          <input type="text" placeholder="Nome" required />
+          {tipoConta === 'Pessoa Física (CPF)' ? (
+            <input type="text" placeholder="CPF" required />
+          ) : (
+            <input type="text" placeholder="CNPJ" required />
+          )}
 
-        <input placeholder="Telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} required />
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <select className="select" required>
+              <option value="">Cidade</option>
+              {/* Inserir cidades */}
+            </select>
+            <select className="select" required>
+              <option value="">Estado</option>
+              {/* Inserir estados */}
+            </select>
+          </div>
 
-        <button type="submit">Cadastrar</button>
-      </form>
+          <input type="text" placeholder="Endereço" required />
+
+          {tipoConta === 'Pessoa Física (CPF)' && (
+            <select className="select" required>
+              <option value="">Gênero</option>
+              <option>Feminino</option>
+              <option>Masculino</option>
+              <option>Outro</option>
+              <option>Prefiro não dizer</option>
+            </select>
+          )}
+
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Senha" required />
+
+          <button type="submit">CADASTRAR</button>
+        </form>
+      </div>
     </div>
   );
 }
